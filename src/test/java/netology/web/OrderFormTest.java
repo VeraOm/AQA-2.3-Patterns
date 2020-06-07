@@ -42,7 +42,7 @@ public class OrderFormTest {
         planSuccessElement.shouldHave(text("Встреча успешно запланирована на")).shouldHave(text(orderDate));
 
         dateElement.sendKeys(Keys.LEFT_CONTROL + "a" + Keys.BACK_SPACE);
-        orderDate = OrderFormGenerator.getOrderDate(1);
+        orderDate = OrderFormGenerator.getOrderDate(4);
         dateElement.setValue(orderDate);
         planBtnElement.click();
 
