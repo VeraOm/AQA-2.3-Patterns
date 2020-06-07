@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/8wkshris871t8h5c?svg=true)](https://ci.appveyor.com/project/VeraOm/aqa-2-3-patterns)
