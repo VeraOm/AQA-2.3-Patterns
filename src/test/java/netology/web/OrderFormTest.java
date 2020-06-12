@@ -15,6 +15,11 @@ public class OrderFormTest {
 
     private OrderFormData formData;
 
+    private SelenideElement dateElement;
+    private SelenideElement planBtnElement;
+    private SelenideElement replainElement;
+    private SelenideElement planSuccessElement;
+
     @BeforeEach
     void setUpAll() {
         formData = OrderFormGenerator.generateData();
@@ -26,7 +31,7 @@ public class OrderFormTest {
 
         $("[data-test-id='city'] input").setValue(formData.getCity());
 
-        SelenideElement dateElement = $("[data-test-id=date] input[class=input__control]");
+        dateElement = $("[data-test-id=date] input[class=input__control]");
         dateElement.sendKeys(Keys.LEFT_CONTROL + "a" + Keys.BACK_SPACE);
         String orderDate = OrderFormGenerator.getOrderDate(3);
         dateElement.setValue(orderDate);
@@ -35,10 +40,10 @@ public class OrderFormTest {
         $("[data-test-id=phone] input").setValue(formData.getPhone());
         $("[data-test-id=agreement]").click();
 
-        SelenideElement planBtnElement = $$("button").find(exactText("Запланировать"));
+        planBtnElement = $$("button").find(exactText("Запланировать"));
         planBtnElement.click();
 
-        SelenideElement planSuccessElement = $("[data-test-id=success-notification]");
+        planSuccessElement = $("[data-test-id=success-notification]");
         planSuccessElement.shouldHave(text("Встреча успешно запланирована на")).shouldHave(text(orderDate));
 
         dateElement.sendKeys(Keys.LEFT_CONTROL + "a" + Keys.BACK_SPACE);
@@ -46,7 +51,7 @@ public class OrderFormTest {
         dateElement.setValue(orderDate);
         planBtnElement.click();
 
-        SelenideElement replainElement = $("[data-test-id=replan-notification]");
+        replainElement = $("[data-test-id=replan-notification]");
         replainElement.shouldHave(text("Необходимо подтверждение"));
         replainElement.$$("button").find(exactText("Перепланировать")).click();
 

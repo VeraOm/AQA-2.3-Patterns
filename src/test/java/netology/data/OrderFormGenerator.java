@@ -1,6 +1,7 @@
 package netology.data;
 
 import com.github.javafaker.Faker;
+import com.github.javafaker.Name;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,8 +19,10 @@ public class OrderFormGenerator {
         Faker faker = new Faker(new Locale("ru"));
         Random rndCities = new Random();
         String cityName = federalCities[rndCities.nextInt(federalCities.length)];
+        String[] customerName = faker.name().name().split(" ");
         return new OrderFormData(cityName,
-                faker.name().fullName(), "+7" + faker.phoneNumber().cellPhone());
+                customerName[0] + " " + customerName[1],
+                "+7" + faker.phoneNumber().cellPhone());
     }
 
     public static String getOrderDate(int addDays) {
