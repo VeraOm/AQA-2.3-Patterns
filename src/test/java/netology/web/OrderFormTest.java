@@ -1,8 +1,12 @@
 package netology.web;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import netology.data.OrderFormData;
 import netology.data.OrderFormGenerator;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
@@ -13,16 +17,22 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class OrderFormTest {
 
-    private OrderFormData formData;
+    private OrderFormData formData = OrderFormGenerator.generateData();
+    ;
 
     private SelenideElement dateElement;
     private SelenideElement planBtnElement;
     private SelenideElement replainElement;
     private SelenideElement planSuccessElement;
 
-    @BeforeEach
-    void setUpAll() {
-        formData = OrderFormGenerator.generateData();
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
     }
 
     @Test
@@ -58,4 +68,5 @@ public class OrderFormTest {
         planSuccessElement.shouldHave(text("Встреча успешно запланирована на")).shouldHave(text(orderDate));
 
     }
+
 }
